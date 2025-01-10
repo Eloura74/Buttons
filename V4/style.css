@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
 :root {
-  --primary-color: #3b99d3;
-  --secondary-color: #0e2334;
-  --white-color: #fff;
+  --couleur-primaire: #3b99d3;
+  --couleur-secondaire: #0e2334;
+  --couleur-blanche: #fff;
 }
 
 * {
@@ -31,8 +31,8 @@ body {
   font-size: 16px;
   line-height: 1.8;
   font-weight: 400;
-  color: var(--primary-color);
-  background-color: var(--secondary-color);
+  color: var(--couleur-primaire);
+  background-color: var(--couleur-secondaire);
 }
 
 .site {
@@ -41,7 +41,7 @@ body {
   align-items: center;
   height: 100vh;
 }
-.container {
+.conteneur {
   max-width: 480px;
   width: 100%;
   padding: 0 2em;
@@ -56,7 +56,7 @@ nav {
   height: 500px;
 }
 
-nav .link {
+nav .lien {
   width: 40px;
   height: 40px;
   display: flex;
@@ -70,7 +70,7 @@ nav .link {
   z-index: 99;
 }
 
-nav .link:before {
+nav .lien:before {
   content: "";
   position: absolute;
   width: inherit;
@@ -78,52 +78,51 @@ nav .link:before {
   background-image: linear-gradient(
     to left,
     transparent 25%,
-    var(--primary-color)
+    var(--couleur-primaire)
   );
   border-radius: 50% 0 0 50%;
   transform: scale(2);
   z-index: -2;
 }
 
-nav .link:after {
+nav .lien:after {
   content: "";
   position: absolute;
   width: calc(100% - 4px);
   height: calc(100% - 4px);
-  background-color: var(--secondary-color);
+  background-color: var(--couleur-secondaire);
   border-radius: 50% 0 0 50%;
   transform: scale(2);
   z-index: -1;
   opacity: 0.5;
 }
 
-nav .link:hover:after {
+nav .lien:hover:after {
   opacity: 0.9;
 }
 
-nav .link .close,
+nav .lien .fermer,
 nav input:checked ~ .label .menu {
   display: none;
 }
-nav input:checked ~ .label .close {
+nav input:checked ~ .label .fermer {
   display: block;
 }
 
-nav ul.submenu {
+nav ul.sousmenu {
   position: absolute;
   transform: rotate(90deg);
   top: 0;
   right: 4em;
   width: 350px;
   height: 500px;
-
-  opacity: 0; /* Remplace visibility par opacity */
-  transition: opacity 0.4s; /* Transition fluide pour l'affichage */
+  opacity: 0;
+  transition: opacity 0.4s;
 }
 
-nav > input:checked ~ ul.submenu {
-  opacity: 1; /* Rendre visible lorsque l'entrée est cochée */
-  transform: rotate(90deg); /* Animation d'ouverture */
+nav > input:checked ~ ul.sousmenu {
+  opacity: 1;
+  transform: rotate(90deg);
 }
 
 nav > input:checked ~ ul {
@@ -131,16 +130,15 @@ nav > input:checked ~ ul {
 }
 
 nav > input:checked ~ ul li {
-  transform: rotate(calc((-180deg / 8) * var(--item))) translateX(0);
+  transform: rotate(calc((-180deg / 8) * var(--element))) translateX(0);
   opacity: 1;
 }
 
-nav ul.submenu li {
-  --item: 1;
+nav ul.sousmenu li {
+  --element: 1;
   position: absolute;
   width: 175px;
   height: 60px;
-
   transform-origin: right center;
   display: flex;
   align-items: center;
@@ -149,27 +147,27 @@ nav ul.submenu li {
 }
 
 nav ul li:nth-child(2) {
-  --item: 2;
+  --element: 2;
 }
 
 nav ul li:nth-child(3) {
-  --item: 3;
+  --element: 3;
 }
 
 nav ul li:nth-child(4) {
-  --item: 4;
+  --element: 4;
 }
 
 nav ul li:nth-child(5) {
-  --item: 5;
+  --element: 5;
 }
 
 nav ul li:nth-child(6) {
-  --item: 6;
+  --element: 6;
 }
 
 nav ul li:nth-child(7) {
-  --item: 7;
+  --element: 7;
 }
 
 nav ul li a {
@@ -187,58 +185,29 @@ nav ul li a i {
   justify-content: center;
   align-items: center;
   border: 2px solid transparent;
-  color: var(--white-color);
-  background-color: var(--primary-color);
+  color: var(--couleur-blanche);
+  background-color: var(--couleur-primaire);
   transition: border-color 0.3s, background-color 0.3s;
 }
 
 nav ul li a i:hover {
   background-color: transparent;
-  border-color: var(--primary-color);
+  border-color: var(--couleur-primaire);
 }
 
 nav ul li a span {
   position: absolute;
-  right: calc(100% + 1em);
-  text-align: right;
-  font-size: 13px;
-  padding: 0 10px;
-  border-radius: 25px;
-  background-image: linear-gradient(
-    to right,
-    transparent 25%,
-    var(--primary-color)
-  );
-  transform: translateX(50px);
-  z-index: 1; /* Modifié pour s'assurer que le texte est visible */
-  transition: color 0.3s, transform 0.3s, opacity 0.4s;
-  opacity: 0; /* Utilisez uniquement opacity pour gérer la visibilité */
+  right: calc(100% + 1.5em);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+  color: var(--couleur-blanche);
 }
 
-nav > input:checked ~ ul li a span {
-  transform: translateX(-10px); /* Animation vers la position finale */
-  opacity: 1; /* Rendre l'élément visible */
-}
-
-nav ul li a span::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  border-radius: 25px;
-  background-color: var(--secondary-color);
-  z-index: -1;
-  transition: background-color 0.3s;
-}
-
-nav ul li a:hover span::before {
-  background-color: transparent;
-}
-
-nav ul li a:hover span {
-  color: var(--white-color);
+nav ul li:hover a span {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 nav ul li:nth-child(1) a i {

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structure Circulaire</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #1e293b; /* Fond sombre */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .circle-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inner-circle {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background-color: #d3d3d3; /* Cercle central */
+      border-radius: 50%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      justify-items: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .inner-btn {
+      width: 70px;
+      height: 70px;
+      background-color: #9f9f9f;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .outer-btn {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background-color: #a82224;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .outer-btn.show {
+      opacity: 1;
+    }
+
+    /* Positionnement radial des sous-boutons */
+    .sub-btn2-1 { top: 15%; left: 65%; transform: translate(-50%, -50%); }
+    .sub-btn2-2 { top: 32%; left: 84%; transform: translate(-50%, -50%); }
+
+    .sub-btn4-1 { top: 68%; left: 83%; transform: translate(-50%, -50%); }
+    .sub-btn4-2 { top: 85%; left: 65%; transform: translate(-50%, -50%); }
+
+    .sub-btn3-1 { bottom: 14%; left: 35%; transform: translate(-50%, 50%); }
+    .sub-btn3-2 { bottom: 33%; left: 17%; transform: translate(-50%, 50%); }
+
+    .sub-btn1-1 { bottom: 68%; left: 17%; transform: translate(-50%, 50%); }
+    .sub-btn1-2 { bottom: 85%; left: 35%; transform: translate(-50%, 50%); }
+  </style>
+</head>
+<body>
+  <div class="circle-container">
+    <!-- Sous-boutons -->
+    <div class="outer-btn sub-btn2-1">sub-btn2-1</div>
+    <div class="outer-btn sub-btn2-2">sub-btn2-2</div>
+    <div class="outer-btn sub-btn1-1">sub-btn1-1</div>
+    <div class="outer-btn sub-btn1-2">sub-btn1-2</div>
+    <div class="outer-btn sub-btn3-1">sub-btn3-1</div>
+    <div class="outer-btn sub-btn3-2">sub-btn3-2</div>
+    <div class="outer-btn sub-btn4-1">sub-btn4-1</div>
+    <div class="outer-btn sub-btn4-2">sub-btn4-2</div>
+
+    <!-- Cercle intérieur -->
+    <div class="inner-circle">
+      <div class="inner-btn" data-target="1">btn1</div>
+      <div class="inner-btn" data-target="2">btn2</div>
+      <div class="inner-btn" data-target="3">btn3</div>
+      <div class="inner-btn" data-target="4">btn4</div>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour gérer les clics sur les boutons principaux
+    document.querySelectorAll('.inner-btn').forEach(btn => {
+      btn.addEventListener('click', (event) => {
+        event.stopPropagation(); // Empêche la propagation du clic pour ne pas fermer immédiatement
+        const target = btn.getAttribute('data-target');
+
+        // Masquer tous les sous-boutons
+        document.querySelectorAll('.outer-btn').forEach(subBtn => {
+          subBtn.classList.remove('show');
+        });
+
+        // Afficher uniquement les sous-boutons liés à la cible
+        document.querySelectorAll(`.sub-btn${target}-1, .sub-btn${target}-2`).forEach(subBtn => {
+          subBtn.classList.add('show');
+        });
+      });
+    });
+
+    // Fonction pour détecter un clic à l'extérieur des sous-boutons ouverts
+    document.addEventListener('click', (event) => {
+      // Vérifie si le clic ne concerne pas un sous-bouton ouvert
+      if (!event.target.classList.contains('outer-btn')) {
+        // Masque tous les sous-boutons
+        document.querySelectorAll('.outer-btn').forEach(subBtn => {
+          subBtn.classList.remove('show');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
